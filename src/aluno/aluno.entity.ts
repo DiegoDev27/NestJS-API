@@ -15,7 +15,7 @@ export class AlunoEntity {
  @Column('text')
  nome: string;
 
- @Column('text')
+ @Column('date')
  data_nascimento: Date;
 
  @Column('text')
