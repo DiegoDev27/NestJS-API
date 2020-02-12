@@ -5,6 +5,7 @@ import {
  Column,
  CreateDateColumn,
  OneToMany,
+ Unique,
 } from 'typeorm';
 
 @Entity('aluno')
@@ -17,8 +18,9 @@ export class AlunoEntity {
 
  @Column('date')
  data_nascimento: Date;
-
+ 
  @Column('text')
+ @Unique(['cpf'])
  cpf: string;
 
  @Column('decimal')

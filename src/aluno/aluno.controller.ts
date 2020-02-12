@@ -1,6 +1,8 @@
 import { AlunoDTO } from './aluno.dto';
 import { AlunoService } from './aluno.service';
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Result } from 'src/shared/util/result';
+import { AlunoEntity } from './aluno.entity';
 
 @Controller('aluno')
 export class AlunoController {
@@ -12,7 +14,7 @@ export class AlunoController {
  }
 
  @Post()
- createAluno(@Body() data: AlunoDTO) {
+ createAluno(@Body() data: AlunoDTO): Promise<Result<AlunoEntity>> {
   return this.alunoService.create(data);
  }
 
