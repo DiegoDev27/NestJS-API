@@ -14,7 +14,12 @@ export class AlunoService {
  ) { }
 
  async showAll() {
-  return await this.alunoRepository.find();
+  const cpf = new Cpf();
+  const alunos = await this.alunoRepository.find();
+  alunos.forEach(x => {
+   x.cpf = cpf.formatCpf(x.cpf);
+  });
+  return alunos;
  }
 
  async create(data: AlunoDTO): Promise<Result<AlunoEntity>> {
@@ -24,17 +29,24 @@ export class AlunoService {
    return result.fail('Cpf inválido');
   }
   const aluno = await this.alunoRepository.create(data);
+  aluno.cpf = cpf.formatCpf(aluno.cpf);
   await this.alunoRepository.save(data);
   return result.ok(aluno);
  }
 
  async read(id: string) {
-  return await this.alunoRepository.findOne({ where: { id } });
+  const cpf = new Cpf()
+  const aluno = await this.alunoRepository.findOne({ where: { id } });
+  aluno.cpf = cpf.formatCpf(aluno.cpf);
+  return aluno;
  }
 
  async update(id: string, data: Partial<AlunoDTO>) {
+  const cpf = new Cpf();
   await this.alunoRepository.update({ id }, data);
-  return await this.alunoRepository.findOne({ id });
+  const aluno = await this.alunoRepository.findOne({ id });
+  aluno.cpf = cpf.formatCpf(aluno.cpf);
+  return aluno;
  }
 
  async destroy(id: string) {

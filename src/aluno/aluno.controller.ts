@@ -24,7 +24,7 @@ export class AlunoController {
  }
 
  @Put(':id')
- updateAluno(@Param('id') id: string, @Body() data: Partial<AlunoDTO>) {
+ updateAluno(@Param('id') id: string, @Body() data: AlunoDTO) {
   return this.alunoService.update(id, data);
  }
 
