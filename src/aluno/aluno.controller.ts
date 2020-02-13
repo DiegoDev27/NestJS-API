@@ -32,4 +32,9 @@ export class AlunoController {
  destroyAluno(@Param('id') id: string) {
   return this.alunoService.destroy(id);
  }
+
+ @Get('/endereco/:id')
+ showEnderecos(@Param('id') id: string){
+  return this.alunoService.showEnderecos(id);
+ }
 }

@@ -5,12 +5,15 @@ import { AlunoEntity } from './aluno.entity';
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { EnderecoEntity } from 'src/endereco/endereco.entity';
 
 @Injectable()
 export class AlunoService {
  constructor(
   @InjectRepository(AlunoEntity)
   private alunoRepository: Repository<AlunoEntity>,
+  @InjectRepository(EnderecoEntity)
+  private enderecoRepository: Repository<EnderecoEntity>,
  ) { }
 
  async showAll() {
@@ -52,5 +55,10 @@ export class AlunoService {
  async destroy(id: string) {
   await this.alunoRepository.delete({ id });
   return { deleted: true };
+ }
+
+ async showEnderecos(id: string) {
+  const endereco = await this.enderecoRepository.find({ where: { alunoId: id } })
+  return endereco;
  }
 }

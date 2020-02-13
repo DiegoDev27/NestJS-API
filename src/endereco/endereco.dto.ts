@@ -12,4 +12,7 @@ export class EnderecoDTO{
  
  @ApiProperty()
  bairro: string;
+
+ @ApiProperty()
+ alunoId: string;
 }

@@ -18,7 +18,7 @@ export class AlunoEntity {
 
  @Column('date')
  data_nascimento: Date;
- 
+
  @Column('text')
  @Unique(['cpf'])
  cpf: string;

@@ -27,6 +27,9 @@ export class EnderecoEntity {
  @CreateDateColumn()
  created: Date;
 
+ @Column('text')
+ alunoId: string;
+
  @ManyToOne(type => AlunoEntity, aluno => aluno.enderecos)
  aluno: AlunoEntity;
 }
