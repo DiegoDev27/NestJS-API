@@ -34,7 +34,12 @@ export class AlunoController {
  }
 
  @Get('/endereco/:id')
- showEnderecos(@Param('id') id: string){
+ showEnderecos(@Param('id') id: string) {
   return this.alunoService.showEnderecos(id);
+ }
+
+ @Get('/aluno/:nota/criterio/:criterio')
+ criterioNota(@Param('nota') nota: number, @Param('criterio') criterio: string) {
+  return this.alunoService.criterioNota(nota, criterio);
  }
 }
