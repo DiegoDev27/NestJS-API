@@ -42,4 +42,9 @@ export class AlunoController {
  criterioNota(@Param('nota') nota: number, @Param('criterio') criterio: string) {
   return this.alunoService.criterioNota(nota, criterio);
  }
+
+ @Get('/aluno/media')
+ mediaNota() {
+  return this.alunoService.mediaNota();
+ }
 }

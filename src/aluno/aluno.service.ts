@@ -3,7 +3,7 @@ import { Result } from './../shared/util/result';
 import { AlunoDTO } from './aluno.dto';
 import { AlunoEntity } from './aluno.entity';
 import { Injectable } from '@nestjs/common';
-import { Repository, MoreThan, LessThan } from 'typeorm';
+import { Repository, MoreThan, LessThan, getRepository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EnderecoEntity } from 'src/endereco/endereco.entity';
 
@@ -69,5 +69,20 @@ export class AlunoService {
    (criterio == '<')
    return this.alunoRepository.find({ nota: LessThan(nota) });
   }
+ }
+
+ async mediaNota() {
+  const quantity = await this.alunoRepository.count();
+  const notas = await getRepository(AlunoEntity)
+   .createQueryBuilder("aluno")
+   .select("SUM(aluno.nota)", "sum")
+   .getRawOne();
+
+  const media = notas.sum / quantity;
+
+  const aluno = this.alunoRepository.find({ nota: MoreThan(media) })
+
+
+  return aluno;
  }
 }
