@@ -11,11 +11,12 @@ export class EnderecoService {
   private enderecoRepository: Repository<EnderecoEntity>,
  ) { }
 
- async showAll(){
-  return this.enderecoRepository.find();
+ async showAll(bairro: string) {
+  const filter = await this.enderecoRepository.find({ where: { bairro } });
+  return filter;
  }
 
- async create(data: EnderecoDTO){
+ async create(data: EnderecoDTO) {
   const endereco = this.enderecoRepository.create(data);
   await this.enderecoRepository.save(data);
   return endereco;
