@@ -33,17 +33,17 @@ export class AlunoController {
   return this.alunoService.destroy(id);
  }
 
- @Get('/endereco/:id')
- showEnderecos(@Param('id') id: string) {
-  return this.alunoService.showEnderecos(id);
+ @Get('/endereco/:alunoId')
+ showEnderecos(@Param('alunoId') alunoId: string) {
+  return this.alunoService.showEnderecos(alunoId);
  }
 
- @Get('/aluno/:nota/criterio/:criterio')
+ @Get('/:nota/criterio/:criterio')
  criterioNota(@Param('nota') nota: number, @Param('criterio') criterio: string) {
   return this.alunoService.criterioNota(nota, criterio);
  }
 
- @Get('/aluno/media')
+ @Get('/media')
  mediaNota() {
   return this.alunoService.mediaNota();
  }

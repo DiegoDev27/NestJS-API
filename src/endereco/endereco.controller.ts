@@ -6,9 +6,14 @@ import { Controller, Post, Get, Body, Param } from '@nestjs/common';
 export class EnderecoController {
  constructor(private enderecoService: EnderecoService) { }
 
- @Get('/endereco/:bairro')
- showAllEnderecos(@Param('bairro') filter: string) {
+ @Get('/:bairro')
+ filtrarEnderecos(@Param('bairro') filter: string) {
   return this.enderecoService.showAll(filter);
+ }
+
+ @Get()
+ showAllEnderecos() {
+  return this.enderecoService.showAll();
  }
 
  @Post()

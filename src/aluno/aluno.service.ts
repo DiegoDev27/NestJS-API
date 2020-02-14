@@ -7,6 +7,16 @@ import { Repository, MoreThan, LessThan, getRepository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EnderecoEntity } from 'src/endereco/endereco.entity';
 
+export class ItemEndeco {
+ endereco:string;
+ bairro:string;
+}
+
+export class EndecoResponse {
+ total: number;
+ enderecos:Array<ItemEndeco>;
+}
+
 @Injectable()
 export class AlunoService {
  constructor(
@@ -15,7 +25,7 @@ export class AlunoService {
   @InjectRepository(EnderecoEntity)
   private enderecoRepository: Repository<EnderecoEntity>,
  ) { }
-
+ 
  async showAll() {
   const cpf = new Cpf();
   const alunos = await this.alunoRepository.find();
@@ -57,9 +67,20 @@ export class AlunoService {
   return { deleted: true };
  }
 
- async showEnderecos(id: string) {
-  const endereco = await this.enderecoRepository.find({ where: { alunoId: id } })
-  return endereco;
+ async showEnderecos(alunoId: string) {
+  const enderecos = await this.enderecoRepository.find({ where: { alunoId: alunoId } })
+
+  const itensEnderecos = enderecos.map((x) => {
+   return {
+    endereco: x.endecoFormatter(),
+    bairro: x.bairro
+   };
+  })
+  const response = new EndecoResponse();
+  response.total = enderecos.length;
+  response.enderecos = itensEnderecos;
+  
+  return response;
  }
 
  async criterioNota(nota: number, criterio: string) {

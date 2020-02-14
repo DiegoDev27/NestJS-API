@@ -7,7 +7,11 @@ import { AlunoModule } from './aluno/aluno.module';
 import { EnderecoModule } from './endereco/endereco.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), AlunoModule, EnderecoModule],
+  imports: [
+    TypeOrmModule.forRoot(),
+    AlunoModule,
+    EnderecoModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

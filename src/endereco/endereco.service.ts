@@ -1,8 +1,10 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { EnderecoDTO } from './endereco.dto';
 import { EnderecoEntity } from './endereco.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class EnderecoService {
@@ -11,9 +13,14 @@ export class EnderecoService {
   private enderecoRepository: Repository<EnderecoEntity>,
  ) { }
 
- async showAll(bairro: string) {
-  const filter = await this.enderecoRepository.find({ where: { bairro } });
-  return filter;
+ async showAll(bairro?: string):Promise<Array<EnderecoEntity>> {
+  let bairros: Array<EnderecoEntity>;
+  if (bairro) {
+   bairros = await this.enderecoRepository.find({ where: { bairro } });
+   return bairros;
+  }
+  bairros = await this.enderecoRepository.find();
+  return bairros;
  }
 
  async create(data: EnderecoDTO) {

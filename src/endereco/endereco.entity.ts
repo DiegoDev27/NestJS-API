@@ -12,24 +12,30 @@ export class EnderecoEntity {
  @PrimaryGeneratedColumn('uuid')
  id: string;
 
- @Column('text')
+ @Column('varchar', {length: 200})
  rua: string;
 
- @Column('text')
+ @Column('varchar', {length: 10, nullable: true})
  numero: string;
 
- @Column('text')
+ @Column('varchar', {length: 200, nullable: true})
  complemento: string;
 
- @Column('text')
+ @Column('varchar', {length: 100})
  bairro: string;
- 
+
  @CreateDateColumn()
  created: Date;
 
- @Column('text')
+ @Column()
  alunoId: string;
 
- @ManyToOne(type => AlunoEntity, aluno => aluno.enderecos)
+ @ManyToOne(() => AlunoEntity, aluno => aluno.enderecos)
  aluno: AlunoEntity;
+
+ endecoFormatter() {
+  const result = `${this.rua}; ${this.numero}; ${this.complemento}`
+  return result;
+ }
+
 }

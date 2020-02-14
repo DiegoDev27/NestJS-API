@@ -13,13 +13,13 @@ export class AlunoEntity {
  @PrimaryGeneratedColumn('uuid')
  id: string;
 
- @Column('text')
+ @Column('varchar', {length: 200, default: 'Nada'})
  nome: string;
 
  @Column('date')
  data_nascimento: Date;
 
- @Column('text')
+ @Column('varchar', {length: 14 })
  @Unique(['cpf'])
  cpf: string;
 
@@ -29,6 +29,6 @@ export class AlunoEntity {
  @CreateDateColumn()
  created: Date;
 
- @OneToMany(type => EnderecoEntity, endereco => endereco.aluno)
+ @OneToMany(() => EnderecoEntity, endereco => endereco.aluno)
  enderecos: EnderecoEntity[];
 }
