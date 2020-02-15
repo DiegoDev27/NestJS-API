@@ -43,7 +43,7 @@ export class AlunoController {
   return this.alunoService.criterioNota(nota, criterio);
  }
 
- @Get('/media')
+ @Get('aluno/media')
  mediaNota() {
   return this.alunoService.mediaNota();
  }
